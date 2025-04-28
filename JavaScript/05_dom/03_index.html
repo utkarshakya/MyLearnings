@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Object Modal</title>
+</head>
+
+<body style="background-color: #222; color: beige;"></body>
+<!-- IN THIS FILE WE HAVE DISCUSSED HOW TO CREATE A NEW ELEMENT -->
+<script>
+    let div = document.createElement('div')
+    div.className = "main";
+    div.id = "hU2";
+    div.style.backgroundColor = "yellow";
+    div.style.color = "black";
+    div.style.padding = "30px";
+    div.setAttribute("title", "DOM");
+    // div.innerText = "Hello, I Am div Created Through DOM By Utkarsh Shakya";
+    const textNode = document.createTextNode("Hello, I Am div Created Through DOM By Utkarsh Shakya");
+    div.appendChild(textNode);
+    // Through above lines we create element and added the class, id, some style
+    // and attribute to it and also added the content (here text).
+    
+    console.log(div);
+    // Now, Run The File And See The Output In The Browser Console. Prefer Chrome.
+
+    // Now, you may wonder why we don't get anything on the body of our page? This is because
+    // the div is created in the local memory of browser and is not attached to the body.
+    // That's why you can see it in console but not the body of the page.
+    // Uncomment The below line and see the magic. :)
+    // document.body.appendChild(div);
+
+    // Have you noticed we created textNode with createTextNode() method and then append it in div.
+    // Why did we do this, I mean we can use simply innerText to add text in div? Yes, we definitely does
+    // but innerText work in little complex way, it first search and fetch the text then overwrite it.
+    // And using appendChild() it simply overwrite. It is just for optimization.
+</script>
+</html>
