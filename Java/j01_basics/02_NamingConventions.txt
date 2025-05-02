@@ -1,0 +1,2 @@
+For Class -> we use PascalConvention.
+For Functions -> we use camelCaseConvention.

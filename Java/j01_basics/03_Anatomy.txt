@@ -1,0 +1,10 @@
+Anatomy Of A Java Program :
+
+1. Documentation Section (Suggested)
+2. Package Statement (Optional)
+3. Import Statement (Optional)
+4. Interface Statement (Optional)
+5. Class Definitions (Optional)
+6. Main Method Class{
+    Main Method Definition (Essential)
+}

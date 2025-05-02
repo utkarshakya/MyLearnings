@@ -1,0 +1,40 @@
+Data Types In Java:
+
+1. Primitive Data Types (Intrinsic) -> byte, short, int, long, float, double, char, bool.
+2. Non-Primitive Data Types (Derived) -> 
+
+>> Since Java is statically typed language, therefore Variables must be declared before use.
+
+PRIMITIVE DATA TYPES:
+
+1. byte ->  Value ranges from -128 to 127
+            Takes 1 byte
+            Default value is 0
+
+2. short -> Value ranges from -(2^15) to (2^15)-1
+            Takes 2 bytes
+            Default value is 0
+
+3. int ->   Value ranges from -(2^31) to (2^31)-1
+            Takes 4 bytes
+            Default value is 0
+
+4. float -> Value ranges from (see online docs)
+            Takes 4 bytes
+            Default value is 0.0f
+
+5. long ->  Value ranges from -(2^63) to (2^63)-1
+            Takes 8 bytes
+            Default value is 0
+
+6. double ->Value ranges from (see online docs)
+            Takes 8 bytes
+            Default value is 0.0d
+
+7. char ->  Value ranges from 0 to 65535 (2^16-1)
+            Takes 2 bytes (because it supports unicode)
+            Default value is '\U0000'
+
+8. bool ->  Value can be true or false
+            Size depends on JVM
+            Default value is False

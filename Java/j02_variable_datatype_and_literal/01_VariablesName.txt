@@ -1,0 +1,7 @@
+Rules for Declaring a variable name:
+
+1. Must not begin with a digit.
+2. Name is Case Sensitive.
+3. Should not be a keyword (like static, void, public, etc).
+4. White Space not allowed.
+5. Can contain alphabets, $ character, _ character and digits if the other conditions are met.

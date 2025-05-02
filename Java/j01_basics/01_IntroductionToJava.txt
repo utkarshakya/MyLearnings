@@ -1,0 +1,9 @@
+Java was made by Sun Microsystem in 1991 and James Gosling who was one of the founders of Java initially called it Oak.
+The goal of this language was to make a simple, portable and reliable language.
+Java is Purely Object Oriented.
+
+How Java Works?
+Java is compiled into the bytecode and then it is interpreted to machine code.
+
+JDK -> Java Development Kit, It is basically a collection of tools used for developing and running Java programs.
+JRE -> Java Runtime Environment, It helps in executing programs developed in Java.
