@@ -74,7 +74,15 @@
 
 - Basics
 - Prototype
+- Call, Apply, Bind
+- Class
+- Inheritance
 
 ## 09_More
 
 - Set
+- Map
+
+## Extra
+
+- Object Descriptor

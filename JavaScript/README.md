@@ -28,4 +28,4 @@ Welcome to the JavaScript Learning Docs repository! This repository is designed 
 ---
 Thank you for visiting this repository. Happy learning!
 
-Click [here](https://utkarshakya.onrender.com) to know more about me.
+Visit [my portfolio website](https://utkarshakya.onrender.com) to know more about me.
