@@ -16,7 +16,7 @@ function App() {
 
   return (
     <>
-      <h1>Cahi Aur {counter}</h1>
+      <h1>Say {counter}</h1>
       <button onClick={add}>Add {counter}</button>
       <button onClick={remove}>Remove {counter}</button>
     </>
