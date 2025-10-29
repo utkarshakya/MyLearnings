@@ -18,6 +18,7 @@ export const ThemeProvider = ({ children }) => {
     const loadTheme = async () => {
       const savedThemeMode = await AsyncStorage.getItem("themeMode");
       if (savedThemeMode) {
+        console.log(savedThemeMode);
         setThemeMode(savedThemeMode);
       }
     };

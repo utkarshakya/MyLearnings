@@ -1,16 +1,12 @@
 {
   "expo": {
-    "scheme": "reactnative",
-    "name": "ReactNative",
-    "slug": "ReactNative",
+    "scheme": "sample",
+    "name": "SampleApp",
+    "slug": "SampleApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
-    "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true
     },
