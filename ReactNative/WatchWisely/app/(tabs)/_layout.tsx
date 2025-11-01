@@ -1,8 +1,8 @@
-// import { TabBarIcon } from "@/src/components/TabBarIcon";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { getTheme } from "@/utils/getTheme";
 
-let theme = "light";
+const theme = getTheme();
 
 export default function TabLayout() {
   return (
@@ -11,14 +11,13 @@ export default function TabLayout() {
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: `${theme === "light" ? "#fff" : "#000"}`,
-          borderTopLeftRadius: 20, // Round top-left corner
-          borderTopRightRadius: 20, // Round top-right corner
+          backgroundColor: `${theme === "light" ? "#fff" : "#111827"}`,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
           borderTopWidth: 0,
-          height: 70,
+          height: 80,
           paddingBottom: 10,
           paddingTop: 10,
-
           shadowColor: "#000",
           shadowOffset: {
             width: 0,
@@ -30,6 +29,10 @@ export default function TabLayout() {
         },
         tabBarActiveTintColor: `${theme === "light" ? "#000" : "#fff"}`,
         tabBarInactiveTintColor: "#8E8E93",
+        tabBarHideOnKeyboard: true,
+        tabBarLabelStyle: {
+          fontSize: 16,
+        },
       }}
     >
       <Tabs.Screen
