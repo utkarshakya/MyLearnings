@@ -6,3 +6,9 @@ expo-env.d.ts
 # @end expo-cli
 
 datasets/
+
+GEMINI.md
+
+# CSV to JSON conversion scripts
+csv_to_json.py
+convert_all_csv.ps1
