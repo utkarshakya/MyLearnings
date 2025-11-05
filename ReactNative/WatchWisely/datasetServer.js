@@ -24,12 +24,7 @@ app.use(cors());
 // Serve static files from the dataset folder
 app.use(express.static(DATA_ROOT));
 
-/**
- * GET /categories
- * ---------------
- * Lists all dataset categories.
- * Each category corresponds to a folder under the DATA_ROOT.
- */
+/* GET /categories */
 app.get("/categories", (req, res) => {
   fs.readdir(DATA_ROOT, { withFileTypes: true }, (err, items) => {
     if (err) {
@@ -45,44 +40,50 @@ app.get("/categories", (req, res) => {
   });
 });
 
-/**
- * GET /categories/:cat/pages/:page
- * --------------------------------
- * Serves a dataset page file within a given category.
- * Examples of valid URLs:
- *   /categories/animals/pages/1
- *   /categories/animals/pages/page1
- *
- * File naming patterns supported:
- *   <category>_page1.json
- *   <category_without_pages>_page1.json
- */
-app.get("/categories/:cat/pages/:page", (req, res) => {
-  const { cat, page } = req.params;
-  const pageNum = page.replace(/^page/, ""); // normalize page param
-  const catFolder = path.join(DATA_ROOT, cat);
+/* GET /categories/:cat/page/:pn */
+app.get("/categories/:cat/page/:pn", (req, res) => {
+  try {
+    const { cat, pn } = req.params;
+    const catFolder = path.join(DATA_ROOT, cat);
 
-  const possibleFiles = [
-    path.join(catFolder, `${cat.replace("_pages", "")}_page${pageNum}.json`),
-    path.join(catFolder, `${cat}_page${pageNum}.json`),
-  ];
-
-  // Return the first file found
-  const filePath = possibleFiles.find((file) => fs.existsSync(file));
-
-  if (!filePath) {
-    return res.status(404).json({
-      error: "page not found",
-      tried: possibleFiles,
-    });
+    return res.sendFile(path.join(catFolder, `${cat}_page${pn}.json`));
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+});
 
-  res.sendFile(filePath);
+/* GET /categories/:cat/items/:noi */
+app.get("/categories/:cat/items/:noi", (req, res) => {
+  try {
+    const { cat, noi } = req.params;
+    const catFolder = path.join(DATA_ROOT, cat);
+
+    // Select Random Page
+    const manifestData = fs.readFileSync(path.join(catFolder, `${cat}_manifest.json`), "utf8");
+    const manifestJson = JSON.parse(manifestData);
+    const totalPages = manifestJson.total_pages;
+    const pn = Math.floor(Math.random() * totalPages) + 1;
+
+    // Read the data from the file
+    const data = fs.readFileSync(path.join(catFolder, `${cat}_page${pn}.json`), "utf8");
+    const jsonData = JSON.parse(data);  // This will be an array of objects
+    let responseData = [];
+
+    // Select Random Items
+    let randomIndex = Math.floor(Math.random() * jsonData.length);
+    for (let i = 0; i < noi; i++) {
+      responseData.push(jsonData[randomIndex]);
+      randomIndex = Math.floor(Math.random() * jsonData.length);
+    }
+
+    // Send the response
+    return res.json(responseData);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 });
 
 // --- Start the server ---
 app.listen(PORT, () => {
   console.log(`Dataset server running at http://localhost:${PORT}`);
 });
-
-
