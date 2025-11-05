@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
-import "@/src/globals.css";
 import { StatusBar } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import "../src/globals.css";
 
 export default function RootLayout() {
   return (
-    <>
+    <SafeAreaProvider>
       <Stack>
         <Stack.Screen
           name="(tabs)"
@@ -20,6 +21,8 @@ export default function RootLayout() {
         />
       </Stack>
       <StatusBar />
-    </>
+    </SafeAreaProvider>
   );
 }
+
+

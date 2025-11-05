@@ -2,12 +2,7 @@ import { View, TextInput } from "react-native";
 import React, { useState } from "react";
 import { EvilIcons } from "@expo/vector-icons";
 
-interface props {
-  placeholder: string;
-  onPress: () => void;
-}
-
-const SearchBar = ({ placeholder, onPress }: props) => {
+const SearchBar = ({ placeholder, onPress }) => {
   const [search, setSearch] = useState("");
 
   return (
