@@ -25,10 +25,10 @@ const Index = () => {
 
   if (movie.status === "succeeded") {
     return (
-      <SafeAreaView className="flex-1 bg-gray-950">
+      <SafeAreaView className="flex-1 bg-gray-800">
         <ScrollView
-          className="flex-1 px-5 pt-10 mb-10"
-          showsVerticalScrollIndicator={true}
+          className="flex-1 pt-10"
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{ minHeight: "100%" }}
         // keyboardShouldPersistTaps="handled"
         >
