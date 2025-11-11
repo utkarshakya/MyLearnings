@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import getMetroHostIp from "../../../utils/getLocalIp";
+import getMetroHostIp from "../../utils/getLocalIp";
 
 export const fetchCategory = createAsyncThunk(
   "movie/fetchCategory",
