@@ -1,18 +1,18 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
-import { ScrollView, Text } from "react-native";
 import { router } from "expo-router";
+import React, { useEffect } from "react";
+import { ScrollView, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTopRatedMovies, selectMovies } from "../../src/redux/slice/movieSlice";
-import SearchBar from "../../src/components/SearchBar";
+// import SearchBar from "../../src/components/SearchBar";
 import TopRatedMovies from "../../src/components/TopRatedMovies";
+import { fetchPopularMovies, selectMovies } from "../../src/redux/slice/movieSlice";
 
 const Index = () => {
   const dispatch = useDispatch();
   const movie = useSelector(selectMovies);
 
   useEffect(() => {
-    dispatch(fetchTopRatedMovies());
+    dispatch(fetchPopularMovies());
   }, [dispatch]);
 
   if (movie.status === "loading") {
@@ -35,10 +35,10 @@ const Index = () => {
           <Text className="font-bold text-4xl text-white italic text-center">
             Welcome
           </Text>
-          <SearchBar
-            placeholder="String"
-            onPress={() => router.push("/search")}
-          />
+          {/* <SearchBar
+            placeholder="Search movies..."
+            onPress={() => router.push("/(tabs)/search")}
+          /> */}
           <TopRatedMovies movies={movie.data?.results} />
         </ScrollView>
       </SafeAreaView>
