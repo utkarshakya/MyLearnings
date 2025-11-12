@@ -73,6 +73,7 @@ export const fetchPopularMovies = createAsyncThunk(
         }
     }
 );
+
 export const moviesSlice = createSlice({
     name: "movies",
     initialState: {
@@ -108,4 +109,5 @@ export const moviesSlice = createSlice({
     },
 });
 
+export const movieReducer = moviesSlice.reducer;
 export const selectMovies = (state) => state.movies;
