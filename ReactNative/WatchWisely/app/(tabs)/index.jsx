@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-// import SearchBar from "../../src/components/SearchBar";
 import Carousel from "../../src/components/Carousel";
 import {
   fetchPopularMovies,
@@ -38,10 +37,6 @@ const Index = () => {
           <Text className="font-bold text-4xl text-white italic text-center">
             Welcome
           </Text>
-          {/* <SearchBar
-            placeholder="Search movies..."
-            onPress={() => router.push("/(tabs)/search")}
-          /> */}
           <Carousel movies={movie.data?.results} />
         </ScrollView>
       </SafeAreaView>

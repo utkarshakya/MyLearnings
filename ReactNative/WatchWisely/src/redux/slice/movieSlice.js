@@ -18,7 +18,7 @@ export const fetchTopRatedMovies = createAsyncThunk(
             },
             );
 
-            return response.data;
+            return response?.data?.results;
         } catch (error) {
             const errorDetails = {
                 message: error.message,
@@ -53,7 +53,7 @@ export const fetchPopularMovies = createAsyncThunk(
             },
             );
 
-            return response.data;
+            return response?.data?.results;
         } catch (error) {
             const errorDetails = {
                 message: error.message,
@@ -84,7 +84,7 @@ export const moviesSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Top-Reated Movies
+            // Top-Rated Movies
             .addCase(fetchTopRatedMovies.pending, (state) => {
                 state.status = "loading";
             })
