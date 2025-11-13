@@ -17,10 +17,6 @@ const Index = () => {
     dispatch(fetchPopularMovies());
   }, [dispatch]);
 
-  if (status === "loading") {
-    return <Text>Loading...</Text>;
-  }
-
   if (status === "failed") {
     return <Text>Error: {error}</Text>;
   }
@@ -31,13 +27,17 @@ const Index = () => {
         <ScrollView
           className="flex-1 pt-10"
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ minHeight: "100%" }}
-          // keyboardShouldPersistTaps="handled"
         >
           <Text className="font-bold text-4xl text-white italic text-center">
             Welcome
           </Text>
-          <Carousel movies={data} />
+          {status === "loading" ? (
+            <Text style={{ color: "white", textAlign: "center" }}>
+              Loading...
+            </Text>
+          ) : (
+            <Carousel movies={data} />
+          )}
         </ScrollView>
       </SafeAreaView>
     );

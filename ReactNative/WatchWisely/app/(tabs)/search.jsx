@@ -1,53 +1,98 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { FlatList, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
+import CustomSearchBar from "../../src/components/CustomSearchBar";
+import SearchSuggestions from "../../src/components/SearchSuggestions";
 import {
+  useResponsiveHeight,
+  useResponsiveWidth,
+} from "../../src/hooks/useResponsive";
+import {
+  clearSearch,
   fetchSearch,
-  fetchSearchSuggestions,
   selectSearch,
 } from "../../src/redux/slice/searchSlice";
-import { ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import CustomSearchBar from "../../src/components/CustomSearchBar";
-import { useResponsiveHeight } from "../../src/hooks/useResponsive";
 import { optimizeSearchResults } from "../../src/utils/functions";
+import PulsePosterSkeleton from "../../src/components/PulsePosterSkeleton";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const { search, searchStatus, searchError } = useSelector(selectSearch);
-
-  if (searchStatus === "succeeded" && search.length > 0) {
-    // console.log(typeof search[0].popularity);
-
-    // Sort the search results by popularity in descending order
-    const optimizedSearch = optimizeSearchResults(search);
-    // console.log(JSON.stringify(optimizedSearch[0], null, 2));
-  }
+  const searchPromiseRef = useRef(null);
+  const optimizedSearch = optimizeSearchResults(search);
+  const gap = useResponsiveHeight(4);
+  const skeletonHeight = useResponsiveHeight(70);
+  const skeletonPadding = useResponsiveHeight(1);
 
   useEffect(() => {
+    searchPromiseRef.current?.abort();
+    searchPromiseRef.current = null;
+
+    const trimmedQuery = query.trim();
+
+    if (trimmedQuery.length === 0) {
+      dispatch(clearSearch());
+      return undefined;
+    }
+
     const delayDebounce = setTimeout(() => {
-      if (query.trim().length > 2) {
-        dispatch(fetchSearch(query));
-      }
+      const promise = dispatch(fetchSearch(trimmedQuery));
+      searchPromiseRef.current = promise;
     }, 1000);
-    return () => clearTimeout(delayDebounce);
+
+    return () => {
+      clearTimeout(delayDebounce);
+    };
   }, [dispatch, query]);
+
+  useEffect(() => {
+    return () => {
+      searchPromiseRef.current?.abort();
+    };
+  }, []);
 
   return (
     <SafeAreaView className="flex-1 bg-gray-800">
-      <ScrollView
-        className="flex-1 p-5 mb-10"
-        contentContainerStyle={{ gap: useResponsiveHeight(4) }}
-      >
+      <View className="flex-1 p-5 mb-10" style={{ gap }}>
         <Text className="font-bold text-4xl text-white italic text-center">
           Search
         </Text>
-        <CustomSearchBar
-          query={query}
-          setQuery={setQuery}
-          placeholder={"Search"}
-        />
-      </ScrollView>
+        <View>
+          <CustomSearchBar
+            query={query}
+            setQuery={setQuery}
+            placeholder={"Search"}
+          />
+          {searchStatus === "loading" ? (
+            <View
+              style={{
+                height: skeletonHeight,
+                paddingVertical: skeletonPadding,
+              }}
+            >
+              <FlatList
+                data={[...Array(9).keys()]}
+                keyExtractor={(item) => item.toString()}
+                renderItem={() => (
+                  <PulsePosterSkeleton
+                    heightInPercentage={20}
+                    widthInPercentage={30}
+                  />
+                )}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                numColumns={3}
+              />
+            </View>
+          ) : (
+            optimizedSearch.length > 0 && (
+              <SearchSuggestions data={optimizedSearch} />
+            )
+          )}
+        </View>
+      </View>
     </SafeAreaView>
   );
 };

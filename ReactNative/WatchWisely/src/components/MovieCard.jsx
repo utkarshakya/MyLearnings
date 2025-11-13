@@ -1,42 +1,55 @@
 // src/components/MovieCard.jsx
+import { router } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { router } from "expo-router";
+import {
+  useResponsiveHeight,
+  useResponsiveWidth,
+} from "../hooks/useResponsive";
+import Constants from "expo-constants";
 
-const IMG_BASE = "https://image.tmdb.org/t/p/w";
+const TMDB_IMAGE_BASE_URL = Constants.expoConfig?.extra?.TMDB_IMAGE_BASE_URL;
 
-const MovieCard = ({ movie, imageWidth = 500 }) => {
+const MovieCard = ({
+  movie,
+  widthInPercentage,
+  heightInPercentage = 40,
+  imageAspectRatio = 2 / 3,
+}) => {
   const uri = movie?.poster_path
-    ? `${IMG_BASE}${imageWidth}${movie.poster_path}`
+    ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
     : null;
-
-  return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={() => router.push(`/movies/${movie.id}`)}
-      className="w-64 space-y-2 mr-5"
-    >
-      <View className="rounded-3xl overflow-hidden">
-        {uri ? (
+  if (uri) {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => router.push(`/movies/${movie.id}`)}
+        style={{
+          margin: useResponsiveWidth(1),
+        }}
+      >
+        <View>
           <Image
             source={{ uri }}
-            className="h-[350px] w-full"
+            style={{
+              aspectRatio: imageAspectRatio,
+              height: useResponsiveHeight(heightInPercentage),
+              borderRadius: 10,
+            }}
             resizeMode="cover"
           />
-        ) : (
-          <View className="w-full h-[200px] items-center justify-center">
-            <Text className="text-gray-400">No Image</Text>
-          </View>
-        )}
-      </View>
-      {/* <Text 
+        </View>
+        {/* <Text 
             numberOfLines={1} 
             className="text-white mt-1.5"
         >
             {movie.title || movie.name}
         </Text> */}
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default MovieCard;

@@ -21,7 +21,7 @@ const Carousel = ({ movies = [] }) => {
         keyExtractor={(item, index) => item.id?.toString() || index.toString()}
         renderItem={({ item }) => <MovieCard movie={item} />}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 20 }}
+        contentContainerStyle={{ paddingHorizontal: 10, gap: 10 }}
       />
     </View>
   );
