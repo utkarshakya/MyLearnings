@@ -1,7 +1,7 @@
 import { FlatList, Text, View } from "react-native";
 import MovieCard from "./MovieCard";
 
-const TopRatedMovies = ({ movies = [] }) => {
+const Carousel = ({ movies = [] }) => {
   if (!Array.isArray(movies) || movies.length === 0) {
     return (
       <View className="mt-8">
@@ -27,4 +27,4 @@ const TopRatedMovies = ({ movies = [] }) => {
   );
 };
 
-export default TopRatedMovies;
+export default Carousel;

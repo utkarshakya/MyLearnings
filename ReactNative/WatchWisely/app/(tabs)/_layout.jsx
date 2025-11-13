@@ -1,17 +1,17 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import useTheme from "../../src/hooks/useTheme";
+import useColors from "../../src/hooks/useColors";
 
 export default function TabLayout() {
-  const theme = useTheme();
-  // console.log(JSON.stringify(theme, null, 2));
+  const colors = useColors();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: theme.bg,
+          backgroundColor: colors.bg,
           borderTopLeftRadius: 20,
           borderTopRightRadius: 20,
           borderTopWidth: 0,
@@ -27,8 +27,8 @@ export default function TabLayout() {
           shadowRadius: 12,
           elevation: 10,
         },
-        tabBarActiveTintColor: theme.accent,
-        tabBarInactiveTintColor: theme.subText,
+        tabBarActiveTintColor: colors.accent,
+        tabBarInactiveTintColor: colors.subText,
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
           fontSize: 16,

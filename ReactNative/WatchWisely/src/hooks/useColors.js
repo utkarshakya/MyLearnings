@@ -3,10 +3,10 @@ import { selectTheme } from "../redux/slice/themeSlice";
 import { Colors } from '../utils/Colors';
 
 
-const useTheme = () => {
+const useColors = () => {
   const isDarkMode = useSelector(selectTheme);
   const theme = isDarkMode ? 'dark' : 'light';
   return Colors[theme];
 }
 
-export default useTheme
+export default useColors

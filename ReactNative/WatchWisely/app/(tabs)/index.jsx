@@ -4,8 +4,11 @@ import { ScrollView, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 // import SearchBar from "../../src/components/SearchBar";
-import TopRatedMovies from "../../src/components/TopRatedMovies";
-import { fetchPopularMovies, selectMovies } from "../../src/redux/slice/movieSlice";
+import Carousel from "../../src/components/Carousel";
+import {
+  fetchPopularMovies,
+  selectMovies,
+} from "../../src/redux/slice/movieSlice";
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -30,7 +33,7 @@ const Index = () => {
           className="flex-1 pt-10"
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ minHeight: "100%" }}
-        // keyboardShouldPersistTaps="handled"
+          // keyboardShouldPersistTaps="handled"
         >
           <Text className="font-bold text-4xl text-white italic text-center">
             Welcome
@@ -39,7 +42,7 @@ const Index = () => {
             placeholder="Search movies..."
             onPress={() => router.push("/(tabs)/search")}
           /> */}
-          <TopRatedMovies movies={movie.data?.results} />
+          <Carousel movies={movie.data?.results} />
         </ScrollView>
       </SafeAreaView>
     );

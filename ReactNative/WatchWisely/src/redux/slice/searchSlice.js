@@ -28,26 +28,64 @@ export const fetchSearch = createAsyncThunk(
         }
     })
 
+// export const fetchSearchSuggestions = createAsyncThunk(
+//     "movies/suggestions",
+//     async (query) => {
+//         // GET REQUEST OPTIONS
+//         const options = {
+//             method: 'GET',
+//             url: `https://api.themoviedb.org/3/search/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&query=${query}`,
+//             headers: {
+//                 accept: 'application/json',
+//                 Authorization: `Bearer ${TMDB_TOKEN}`
+//             }
+//         };
+//         // GET REQUEST
+//         try {
+//             const response = await axios(options);
+//             // console.log(JSON.stringify(response.data, null, 2));
+//             // console.log(JSON.stringify(response.data.results, null, 2));
+//             return response?.data?.results
+//         } catch (error) {
+//             console.log(error)
+//             throw error
+//         }
+//     })
+
 export const searchSlice = createSlice({
     name: "search",
     initialState: {
-        data: [],
-        status: "idle",
-        error: null
+        search: [],
+        searchStatus: "idle",
+        searchError: null,
+        // suggestions: [],
+        // suggestionsStatus: "idle",
+        // suggestionsError: null,
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchSearch.pending, (state) => {
-                state.status = "loading"
+                state.searchStatus = "loading"
             })
             .addCase(fetchSearch.fulfilled, (state, action) => {
-                state.status = "succeeded"
-                state.data = action.payload
+                state.searchStatus = "succeeded"
+                state.search = action.payload
             })
             .addCase(fetchSearch.rejected, (state, action) => {
-                state.status = "failed"
-                state.error = action.payload
+                state.searchStatus = "failed"
+                state.searchError = action.payload
             })
+        // .addCase(fetchSearchSuggestions.pending, (state) => {
+        //     state.suggestionsStatus = "loading"
+        // })
+        // .addCase(fetchSearchSuggestions.fulfilled, (state, action) => {
+        //     state.suggestionsStatus = "succeeded"
+        //     state.suggestions = action.payload
+        // })
+        // .addCase(fetchSearchSuggestions.rejected, (state, action) => {
+        //     state.suggestionsStatus = "failed"
+        //     state.suggestionsError = action.payload
+        // })
     }
 })
 
