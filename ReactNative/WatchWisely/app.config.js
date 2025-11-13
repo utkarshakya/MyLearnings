@@ -48,6 +48,8 @@ export default {
     },
     extra: {
       TMDB_TOKEN: process.env.EXPO_PUBLIC_TMDB_TOKEN,
+      TMDB_BASE_URL: process.env.EXPO_PUBLIC_TMDB_BASE_URL,
+      TMDB_IMAGE_BASE_URL: process.env.EXPO_PUBLIC_TMDB_IMAGE_BASE_URL
     },
   }
 };

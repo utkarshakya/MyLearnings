@@ -1,6 +1,6 @@
 # Files
 expo-env.d.ts
-.env
+*.env
 
 # Folders
 .expo/

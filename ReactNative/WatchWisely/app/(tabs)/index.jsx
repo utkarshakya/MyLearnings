@@ -11,21 +11,21 @@ import {
 
 const Index = () => {
   const dispatch = useDispatch();
-  const movie = useSelector(selectMovies);
+  const { data, status, error } = useSelector(selectMovies);
 
   useEffect(() => {
     dispatch(fetchPopularMovies());
   }, [dispatch]);
 
-  if (movie.status === "loading") {
+  if (status === "loading") {
     return <Text>Loading...</Text>;
   }
 
-  if (movie.status === "failed") {
-    return <Text>Error: {movie.error}</Text>;
+  if (status === "failed") {
+    return <Text>Error: {error}</Text>;
   }
 
-  if (movie.status === "succeeded") {
+  if (status === "succeeded") {
     return (
       <SafeAreaView className="flex-1 bg-gray-800">
         <ScrollView
@@ -37,7 +37,7 @@ const Index = () => {
           <Text className="font-bold text-4xl text-white italic text-center">
             Welcome
           </Text>
-          <Carousel movies={movie.data?.results} />
+          <Carousel movies={data} />
         </ScrollView>
       </SafeAreaView>
     );

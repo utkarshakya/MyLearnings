@@ -3,6 +3,7 @@ import axios from "axios";
 import Constants from "expo-constants";
 
 const TMDB_TOKEN = Constants.expoConfig?.extra?.TMDB_TOKEN
+const TMDB_BASE_URL = Constants.expoConfig?.extra?.TMDB_BASE_URL
 
 export const fetchTopRatedMovies = createAsyncThunk(
     "movie/fetchTopRated",
@@ -10,7 +11,7 @@ export const fetchTopRatedMovies = createAsyncThunk(
         try {
 
             const response = await axios.get(
-                `https://api.themoviedb.org/3/movie/top_rated`, {
+                `${TMDB_BASE_URL}/movie/top_rated`, {
                 headers: {
                     Authorization: `Bearer ${TMDB_TOKEN}`,
                     'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export const fetchPopularMovies = createAsyncThunk(
         try {
 
             const response = await axios.get(
-                `https://api.themoviedb.org/3/movie/popular`, {
+                `${TMDB_BASE_URL}/movie/popular`, {
                 headers: {
                     Authorization: `Bearer ${TMDB_TOKEN}`,
                     'Content-Type': 'application/json',
