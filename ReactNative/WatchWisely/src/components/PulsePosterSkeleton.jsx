@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { Animated } from "react-native";
+import { useColors } from "../hooks/useColors";
 import {
-  useResponsiveHeight,
-  useResponsiveWidth,
+    useResponsiveHeight,
+    useResponsiveWidth,
 } from "../hooks/useResponsive";
-import useColors from "../hooks/useColors";
 
 const PulsePosterSkeleton = ({ heightInPercentage, widthInPercentage }) => {
   const colors = useColors();

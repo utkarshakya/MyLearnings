@@ -1,12 +1,10 @@
 import { useSelector } from "react-redux";
 import { selectTheme } from "../redux/slice/themeSlice";
-import { Colors } from '../utils/Colors';
+// import { Colors } from '../utils/Colors';
+import { Colors } from "../constants/Colors"
 
-
-const useColors = () => {
+export const useColors = () => {
   const isDarkMode = useSelector(selectTheme);
   const theme = isDarkMode ? 'dark' : 'light';
-  return Colors[theme];
+  return { Colors: Colors[theme] };
 }
-
-export default useColors

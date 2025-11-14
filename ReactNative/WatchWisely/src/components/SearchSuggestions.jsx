@@ -1,10 +1,8 @@
-import { View, Text, FlatList } from "react-native";
-import React from "react";
+import { FlatList, Text, View } from "react-native";
+import { useColors } from "../hooks/useColors";
 import {
-  useResponsiveHeight,
-  useResponsiveWidth,
+    useResponsiveHeight
 } from "../hooks/useResponsive";
-import useColors from "../hooks/useColors";
 import MovieCard from "./MovieCard";
 
 const SearchSuggestions = ({ data }) => {

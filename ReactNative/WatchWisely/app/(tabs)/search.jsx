@@ -17,11 +17,14 @@ import { optimizeSearchResults } from "../../src/utils/functions";
 import PulsePosterSkeleton from "../../src/components/PulsePosterSkeleton";
 
 const Search = () => {
-  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const { search, searchStatus, searchError } = useSelector(selectSearch);
+  
+  const [query, setQuery] = useState("");
   const searchPromiseRef = useRef(null);
+  
   const optimizedSearch = optimizeSearchResults(search);
+  
   const gap = useResponsiveHeight(4);
   const skeletonHeight = useResponsiveHeight(70);
   const skeletonPadding = useResponsiveHeight(1);

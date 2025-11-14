@@ -1,13 +1,12 @@
-import React from "react";
-import { View, TextInput } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { TextInput, View } from "react-native";
 // Custom Hooks
+import { useColors } from "../hooks/useColors";
 import {
-  useResponsiveFont,
-  useResponsiveHeight,
-  useResponsiveWidth,
+    useResponsiveFont,
+    useResponsiveHeight,
+    useResponsiveWidth,
 } from "../hooks/useResponsive";
-import useColors from "../hooks/useColors";
 
 const CustomSearchBar = ({ query, setQuery, placeholder }) => {
   const colors = useColors();

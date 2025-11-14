@@ -1,77 +1,45 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import useColors from "../../src/hooks/useColors";
+import { useColors } from "../../src/hooks/useColors";
+import {
+  useResponsiveHeight,
+  useResponsiveWidth,
+} from "../../src/hooks/useResponsive";
+import CustomTabBar from "../../src/components/CustomTabBar";
+import { use } from "react";
 
 export default function TabLayout() {
-  const colors = useColors();
+  const iconSize = useResponsiveHeight(3); // Example size based on height
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {
-          position: "absolute",
-          backgroundColor: colors.bg,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          borderTopWidth: 0,
-          height: 80,
-          paddingBottom: 10,
-          paddingTop: 10,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: -2,
-          },
-          shadowOpacity: 0.08,
-          shadowRadius: 12,
-          elevation: 10,
-        },
-        tabBarActiveTintColor: colors.accent,
-        tabBarInactiveTintColor: colors.subText,
-        tabBarHideOnKeyboard: true,
-        tabBarLabelStyle: {
-          fontSize: 16,
-        },
       }}
+      tabBar={(props) => <CustomTabBar {...props} />}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: ({ color, focused, size }) => (
-            <Ionicons
-              name={focused ? "home" : "home-outline"}
-              size={size}
-              color={color}
-            />
-          ),
+          tabBarLabel: "Home",
+          tabBarFocusedIconName: "home",
+          tabBarUnfocusedIconName: "home-outline",
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          title: "Search",
-          tabBarIcon: ({ color, focused, size }) => (
-            <Ionicons
-              name={focused ? "journal" : "journal-outline"}
-              size={size}
-              color={color}
-            />
-          ),
+          tabBarLabel: "Search",
+          tabBarFocusedIconName: "search",
+          tabBarUnfocusedIconName: "search-outline",
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
-          tabBarIcon: ({ color, focused, size }) => (
-            <Ionicons
-              name={focused ? "person" : "person-outline"}
-              size={size}
-              color={color}
-            />
-          ),
+          tabBarLabel: "Profile",
+          tabBarFocusedIconName: "person",
+          tabBarUnfocusedIconName: "person-outline",
         }}
       />
     </Tabs>
