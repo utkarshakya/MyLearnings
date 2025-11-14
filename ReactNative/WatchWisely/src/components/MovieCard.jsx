@@ -11,19 +11,18 @@ import Constants from "expo-constants";
 const TMDB_IMAGE_BASE_URL = Constants.expoConfig?.extra?.TMDB_IMAGE_BASE_URL;
 
 const MovieCard = ({
-  movie,
-  widthInPercentage,
-  heightInPercentage = 40,
+  data,
+  heightInPercentage = 35,
   imageAspectRatio = 2 / 3,
 }) => {
-  const uri = movie?.poster_path
-    ? `${TMDB_IMAGE_BASE_URL}${movie.poster_path}`
+  const uri = data?.poster_path
+    ? `${TMDB_IMAGE_BASE_URL}${data.poster_path}`
     : null;
   if (uri) {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => router.push(`/movies/${movie.id}`)}
+        onPress={() => router.push(`/movies/${data.id}`)}
         style={{
           margin: useResponsiveWidth(1),
         }}
@@ -43,7 +42,7 @@ const MovieCard = ({
             numberOfLines={1} 
             className="text-white mt-1.5"
         >
-            {movie.title || movie.name}
+            {data.title || data.name}
         </Text> */}
       </TouchableOpacity>
     );

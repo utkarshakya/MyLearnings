@@ -2,12 +2,12 @@ import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { useColors } from "../hooks/useColors";
 import {
-    useResponsiveHeight,
-    useResponsiveWidth,
+  useResponsiveHeight,
+  useResponsiveWidth,
 } from "../hooks/useResponsive";
 
 const PulsePosterSkeleton = ({ heightInPercentage, widthInPercentage }) => {
-  const colors = useColors();
+  const { Colors } = useColors();
   const opacity = useRef(new Animated.Value(0.6)).current;
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const PulsePosterSkeleton = ({ heightInPercentage, widthInPercentage }) => {
       style={{
         height: useResponsiveHeight(heightInPercentage),
         borderRadius: 10,
-        backgroundColor: colors.bg,
+        backgroundColor: Colors.surface.surface1,
         opacity,
         aspectRatio: 2 / 3,
         margin: useResponsiveWidth(1),

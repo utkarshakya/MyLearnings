@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Carousel from "../../src/components/Carousel";
 import {
   fetchPopularMovies,
+  fetchTopRatedMovies,
   selectMovies,
 } from "../../src/redux/slice/movieSlice";
 
@@ -16,6 +17,8 @@ import {
   useResponsiveFont,
   useResponsiveHeight,
 } from "../../src/hooks/useResponsive";
+import PulsePosterSkeleton from "../../src/components/PulsePosterSkeleton";
+import MovieCard from "../../src/components/MovieCard";
 
 const Index = () => {
   const { Colors } = useColors();
@@ -23,8 +26,8 @@ const Index = () => {
   const { data, status, error } = useSelector(selectMovies);
 
   // Responsive sizes
-  const titleFont = useResponsiveFont(32); // ~32px responsive
-  const topSpacing = useResponsiveHeight(3); // top padding
+  const titleFont = useResponsiveFont(25); // ~25px responsive
+  const topSpacing = useResponsiveHeight(4); // top padding
 
   useEffect(() => {
     dispatch(fetchPopularMovies());
@@ -43,7 +46,7 @@ const Index = () => {
         <Text
           style={{
             color: Colors.semantic.error,
-            fontSize: useResponsiveFont(18),
+            fontSize: titleFont * 0.75,
             fontWeight: "600",
           }}
         >
@@ -70,28 +73,23 @@ const Index = () => {
         <Text
           style={{
             fontSize: titleFont,
-            fontWeight: "700",
+            fontWeight: "bold",
             color: Colors.core.text,
             textAlign: "center",
             fontStyle: "italic",
-            marginBottom: useResponsiveHeight(2),
           }}
         >
           Welcome
         </Text>
 
         {status === "loading" ? (
-          <Text
-            style={{
-              color: Colors.core.subText,
-              textAlign: "center",
-              fontSize: useResponsiveFont(16),
-            }}
-          >
-            Loading...
-          </Text>
+          <Carousel isLoading={true} CardComponent={PulsePosterSkeleton} cardHeightInPercentage={40} />
         ) : (
-          <Carousel movies={data} />
+          <Carousel
+            data={data}
+            CardComponent={MovieCard}
+            cardHeightInPercentage={40}
+          />
         )}
       </ScrollView>
     </SafeAreaView>

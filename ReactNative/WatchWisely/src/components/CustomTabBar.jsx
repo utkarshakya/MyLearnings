@@ -11,7 +11,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
   const tabHeight = useResponsiveHeight(8); // ~8% of screen height
   const horizontal = useResponsiveWidth(8); // Side spacing based on screen width
-  const bottomPadding = useResponsiveHeight(3); // Bottom padding based on screen height
+  const bottomPadding = useResponsiveHeight(2); // Bottom padding based on screen height
   const radius = useResponsiveHeight(5); // Border radius based on screen height
   const iconSize = useResponsiveWidth(6); // Icon size based on screen width
   const labelFontSize = useResponsiveWidth(3); // Label font size based on screen width

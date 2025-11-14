@@ -1,20 +1,12 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { useColors } from "../../src/hooks/useColors";
-import {
-  useResponsiveHeight,
-  useResponsiveWidth,
-} from "../../src/hooks/useResponsive";
 import CustomTabBar from "../../src/components/CustomTabBar";
-import { use } from "react";
 
 export default function TabLayout() {
-  const iconSize = useResponsiveHeight(3); // Example size based on height
-
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,
       }}
       tabBar={(props) => <CustomTabBar {...props} />}
     >

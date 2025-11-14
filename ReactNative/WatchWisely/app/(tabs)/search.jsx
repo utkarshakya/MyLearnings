@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomSearchBar from "../../src/components/CustomSearchBar";
 import SearchSuggestions from "../../src/components/SearchSuggestions";
 import {
+  useResponsiveFont,
   useResponsiveHeight,
   useResponsiveWidth,
 } from "../../src/hooks/useResponsive";
@@ -15,17 +16,25 @@ import {
 } from "../../src/redux/slice/searchSlice";
 import { optimizeSearchResults } from "../../src/utils/functions";
 import PulsePosterSkeleton from "../../src/components/PulsePosterSkeleton";
+import { useColors } from "../../src/hooks/useColors";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const { search, searchStatus, searchError } = useSelector(selectSearch);
-  
+  const { search, searchStatus } = useSelector(selectSearch);
+
+  const { Colors } = useColors();
+
   const [query, setQuery] = useState("");
   const searchPromiseRef = useRef(null);
-  
+
   const optimizedSearch = optimizeSearchResults(search);
-  
-  const gap = useResponsiveHeight(4);
+
+  // Responsive spacing/sizing
+  const titleSize = useResponsiveFont(25); // ~25px responsive
+  const topSpacing = useResponsiveHeight(4); // top padding
+  const horizontalMargin = useResponsiveWidth(5);
+  // const padding = useResponsiveWidth(5);
+  // const marginBottom = useResponsiveHeight(10);
   const skeletonHeight = useResponsiveHeight(70);
   const skeletonPadding = useResponsiveHeight(1);
 
@@ -34,40 +43,61 @@ const Search = () => {
     searchPromiseRef.current = null;
 
     const trimmedQuery = query.trim();
-
     if (trimmedQuery.length === 0) {
       dispatch(clearSearch());
-      return undefined;
+      return;
     }
 
-    const delayDebounce = setTimeout(() => {
+    const delay = setTimeout(() => {
       const promise = dispatch(fetchSearch(trimmedQuery));
       searchPromiseRef.current = promise;
     }, 1000);
 
-    return () => {
-      clearTimeout(delayDebounce);
-    };
+    return () => clearTimeout(delay);
   }, [dispatch, query]);
 
   useEffect(() => {
-    return () => {
-      searchPromiseRef.current?.abort();
-    };
+    return () => searchPromiseRef.current?.abort();
   }, []);
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-800">
-      <View className="flex-1 p-5 mb-10" style={{ gap }}>
-        <Text className="font-bold text-4xl text-white italic text-center">
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: Colors.core.bg,
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          paddingTop: topSpacing,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: titleSize,
+            fontWeight: "bold",
+            color: Colors.core.text,
+            textAlign: "center",
+            fontStyle: "italic",
+          }}
+        >
           Search
         </Text>
-        <View>
+
+        <View
+          style={{
+            flex: 1,
+            marginTop: topSpacing,
+            marginHorizontal: horizontalMargin,
+          }}
+        >
           <CustomSearchBar
             query={query}
             setQuery={setQuery}
-            placeholder={"Search"}
+            placeholder="Search"
           />
+
           {searchStatus === "loading" ? (
             <View
               style={{
@@ -78,21 +108,19 @@ const Search = () => {
               <FlatList
                 data={[...Array(9).keys()]}
                 keyExtractor={(item) => item.toString()}
+                numColumns={3}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 renderItem={() => (
                   <PulsePosterSkeleton
                     heightInPercentage={20}
                     widthInPercentage={30}
                   />
                 )}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                numColumns={3}
               />
             </View>
           ) : (
-            optimizedSearch.length > 0 && (
-              <SearchSuggestions data={optimizedSearch} />
-            )
+            <SearchSuggestions data={optimizedSearch} />
           )}
         </View>
       </View>
